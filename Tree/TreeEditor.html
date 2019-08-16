@@ -1,0 +1,106 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" ; charset="utf-8" />
+    <title>Tree</title>
+    <link rel="stylesheet" href="../ext-3.3.0/resources/css/ext-all.css">
+    <script type="text/javascript" src="../ext-3.3.0/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext-3.3.0/ext-all.js"></script>
+    <script type="text/javascript" src="./TreeEditorViewController.js"></script>
+    <script>
+        Ext.onReady(function () {
+
+            var rootTreeNode = new Ext.tree.AsyncTreeNode({
+                id: '0-ita',
+                text: 'ITA',
+                checked: true,
+                expanded: true
+            });
+
+            var menu = new Ext.menu.Menu({
+                items:[{
+                    id: 'addNew',
+                    text: 'Add New'
+                }, {
+                    id: 'delete',
+                    text: 'Delete'
+                }],
+                listeners: {
+                    itemclick: function (item) {
+                        menuItemClick(item);
+                    }
+                }
+
+            });
+
+            
+            var itaTreePanel = new Ext.tree.TreePanel({
+                root: rootTreeNode,
+                enableDD: true,
+                width: 250,
+                height: 500,
+                contextMenu: menu,
+                loader: new Ext.tree.TreeLoader({ dataUrl: 'studentItem.txt' }),
+                listeners: {
+                    contextmenu: function (node, e) {
+                        treePanelContextMenu(node, e)
+                    },
+                    click: function (node) {
+                        treePanelClick(node)
+                    },
+                }
+            });
+
+            var treeEditor = new Ext.tree.TreeEditor(itaTreePanel, { allowBlank: false }, {
+            });
+
+            var formPanel = new Ext.form.FormPanel({
+                frame: true,
+                width:400,
+                height:200,
+                style: 'margin: 20 0 0 15;',
+                title: 'Add a line of Class and Student',
+                bodyStyle: 'padding:15px 5px 0 15px',
+                items: [{
+                    id: 'inputClsOrStuNameLabel',
+                    xtype: 'textfield',
+                    fieldLabel: 'Add Class and Student:',
+                    name: 'inputClsOrStuNameLabel',
+                    allowBlank: false,
+                    labelSeparator: '<span style="color:red">*</span>',
+
+                }],
+                buttons: [{
+                    text: 'Add',
+                    listeners: {
+                        click: function (btn, event) {
+                            debugger
+                            addClassAndStudent(btn, event);
+                        }
+                    }
+                }]
+            });
+
+            var window = new Ext.Window({
+                title: 'ITA Student Infomation Management',
+                width: 700,
+                height: 600,
+                autoScroll: true,
+                plain: true,
+                layout: 'column',
+                items: [itaTreePanel, formPanel]
+            });
+            window.show(this);
+        });
+    </script>
+
+</head>
+<style>
+
+</style>
+
+<body>
+    <div id="tree" style="height: 900; width: 300;"></div>
+</body>
+
+</html>

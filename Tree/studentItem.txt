@@ -1,0 +1,8 @@
+[
+  {text:'Bering', children:[], id:'bering-class', leaf: false},
+  {text:'Gibraltar', children:[], id:'gibraltar-class', leaf: false, children: [
+    {text:'Emilio', id:'1-student', leaf: true}
+  ]},
+  {text:'Panama', id:'panama-class', leaf: false},
+  {text:'Suez', children:[], id:'suez-class', leaf: false},
+]
